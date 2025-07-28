@@ -92,8 +92,8 @@ const AiChat = () => {
 
     const pageVariants = {
         initial: { opacity: 0, y: 20 },
-        animate: { opacity: 1, y: 0 },
-        exit: { opacity: 0, y: -20 }
+        animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+        exit: { opacity: 0, y: -20, transition: { duration: 0.3 } }
     };
 
     const containerVariants = {
@@ -101,7 +101,6 @@ const AiChat = () => {
         visible: {
             opacity: 1,
             transition: {
-                delayChildren: 0.2,
                 staggerChildren: 0.1
             }
         }
@@ -109,20 +108,16 @@ const AiChat = () => {
 
     const messageVariants = {
         hidden: { opacity: 0, y: 20, scale: 0.95 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            scale: 1
-        }
+        visible: { opacity: 1, y: 0, scale: 1 },
+        exit: { opacity: 0, scale: 0.95 }
     };
 
     return (
-        <div className="min-h-screen bg-chat-background text-foreground font-sans flex flex-col items-center justify-center p-4 relative overflow-hidden" dir="rtl">
+        <div className="min-h-screen bg-slate-900 text-slate-100 font-sans flex flex-col items-center justify-center p-4 relative overflow-hidden" dir="rtl">
             {/* Background Decorations */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-primary opacity-5 rounded-full blur-3xl animate-float" />
-                <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-user opacity-5 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
-                <div className="absolute top-1/2 right-1/2 w-64 h-64 bg-primary opacity-10 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-green-500/10 to-teal-500/10 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-br from-indigo-500/10 to-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
             </div>
 
             <motion.div
@@ -130,47 +125,44 @@ const AiChat = () => {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                transition={{ duration: 0.6, ease: "easeOut" }}
                 className="w-full max-w-5xl h-[95vh] relative z-10"
             >
-                <div className="h-full bg-gradient-surface backdrop-blur-xl rounded-3xl shadow-elegant border border-chat-border overflow-hidden flex flex-col">
+                <div className="h-full bg-slate-800/50 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-700 overflow-hidden flex flex-col">
                     {/* Header */}
                     <motion.header 
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3, duration: 0.5 }}
-                        className="p-6 border-b border-chat-border flex items-center justify-between flex-shrink-0 bg-gradient-to-r from-chat-surface/50 to-transparent"
+                        className="p-6 border-b border-slate-700 flex items-center justify-between flex-shrink-0 bg-slate-800/30"
                     >
                         <div className="flex items-center gap-4">
                             <motion.div
                                 whileHover={{ scale: 1.1, rotate: 5 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="relative p-4 rounded-2xl bg-gradient-primary shadow-glow"
+                                className="relative p-4 rounded-2xl bg-gradient-to-br from-green-500 to-teal-600 shadow-lg"
                             >
-                                <CalendarDays className="w-7 h-7 text-primary-foreground" />
+                                <CalendarDays className="w-7 h-7 text-white" />
                                 <motion.div
-                                    animate={{ rotate: 360 }}
-                                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                                    className="absolute -top-1 -right-1 w-3 h-3 bg-success rounded-full"
+                                    className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full"
                                 />
                             </motion.div>
                             <div>
-                                <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                                <h1 className="text-2xl font-bold bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text text-transparent">
                                     منظّم
                                 </h1>
                                 <motion.p 
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.5 }}
-                                    className="text-success text-sm flex items-center gap-2"
+                                    className="text-green-400 text-sm flex items-center gap-2"
                                 >
                                     <motion.span 
                                         animate={{ scale: [1, 1.2, 1] }}
                                         transition={{ duration: 1.5, repeat: Infinity }}
-                                        className="w-2 h-2 bg-success rounded-full"
+                                        className="w-2 h-2 bg-green-400 rounded-full"
                                     />
                                     متصل الآن
-                                    <Sparkles className="w-4 h-4 animate-pulse" />
+                                    <Sparkles className="w-4 h-4 text-green-400/80 animate-pulse" />
                                 </motion.p>
                             </div>
                         </div>
@@ -182,9 +174,9 @@ const AiChat = () => {
                         >
                             <Link
                                 to="/"
-                                className="p-3 rounded-xl bg-muted/50 hover:bg-muted transition-all duration-300 inline-flex items-center backdrop-blur-sm border border-chat-border hover:border-primary/50 hover:shadow-glow"
+                                className="p-3 rounded-xl bg-slate-700/50 hover:bg-slate-700 transition-all duration-300 inline-flex items-center backdrop-blur-sm border border-slate-600 hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/20"
                             >
-                                <ArrowLeft className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
+                                <ArrowLeft className="w-5 h-5 text-slate-400 hover:text-green-400 transition-colors" />
                             </Link>
                         </motion.div>
                     </motion.header>
@@ -195,70 +187,52 @@ const AiChat = () => {
                             variants={containerVariants}
                             initial="hidden"
                             animate="visible"
-                            className="flex-1 overflow-y-auto p-6 space-y-6 scroll-smooth"
-                            style={{
-                                scrollbarWidth: 'thin',
-                                scrollbarColor: 'hsl(var(--primary)) transparent'
-                            }}
+                            className="flex-1 overflow-y-auto p-6 space-y-6"
                         >
-                            <AnimatePresence mode="popLayout">
-                                {messages.map((message, index) => (
+                            <AnimatePresence>
+                                {messages.map((message) => (
                                     <motion.div
                                         key={message.id}
                                         variants={messageVariants}
-                                        initial="hidden"
-                                        animate="visible"
-                                        exit={{ opacity: 0, scale: 0.95 }}
-                                        transition={{ duration: 0.4, ease: "easeOut" }}
                                         layout
                                         className={`flex items-end gap-4 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                                     >
                                         {message.sender === 'Munazzem' && (
                                             <motion.div 
                                                 whileHover={{ scale: 1.1 }}
-                                                className="relative w-12 h-12 rounded-2xl bg-gradient-primary flex items-center justify-center flex-shrink-0 shadow-message"
+                                                className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center flex-shrink-0 shadow-md"
                                             >
-                                                <CalendarDays size={20} className="text-primary-foreground" />
-                                                <div className="absolute -top-1 -right-1 w-4 h-4 bg-success rounded-full border-2 border-chat-background animate-pulse" />
+                                                <CalendarDays size={20} className="text-white" />
                                             </motion.div>
                                         )}
                                         
                                         <motion.div
-                                            whileHover={{ scale: 1.02 }}
-                                            className={`max-w-xl rounded-3xl p-5 shadow-message text-base relative ${
+                                            whileHover={{ y: -2 }}
+                                            className={`max-w-xl rounded-2xl p-5 shadow-lg text-base relative ${
                                                 message.sender === 'user'
-                                                    ? 'bg-gradient-user text-white rounded-br-lg border border-user-bubble/20'
-                                                    : 'bg-chat-surface border border-chat-border rounded-bl-lg'
+                                                    ? 'bg-indigo-600 text-white rounded-br-lg'
+                                                    : 'bg-slate-700/80 border border-slate-600/50 rounded-bl-lg'
                                             }`}
                                         >
                                             <p className="leading-relaxed whitespace-pre-wrap" style={{ wordBreak: 'break-word' }}>
                                                 {message.text}
                                             </p>
                                             <p className={`text-xs mt-3 ${
-                                                message.sender === 'user' ? 'text-white/70' : 'text-muted-foreground'
+                                                message.sender === 'user' ? 'text-indigo-200' : 'text-slate-400'
                                             }`}>
                                                 {message.timestamp.toLocaleTimeString('ar-EG', { 
                                                     hour: '2-digit', 
                                                     minute: '2-digit' 
                                                 })}
                                             </p>
-                                            
-                                            {/* Message decoration */}
-                                            <div className={`absolute -bottom-1 ${
-                                                message.sender === 'user' ? '-right-1' : '-left-1'
-                                            } w-3 h-3 ${
-                                                message.sender === 'user' ? 'bg-user-bubble' : 'bg-chat-surface'
-                                            } transform rotate-45 border-r border-b ${
-                                                message.sender === 'user' ? 'border-user-bubble/20' : 'border-chat-border'
-                                            }`} />
                                         </motion.div>
                                         
                                         {message.sender === 'user' && (
                                             <motion.div 
                                                 whileHover={{ scale: 1.1 }}
-                                                className="w-12 h-12 rounded-2xl bg-muted flex items-center justify-center flex-shrink-0 shadow-message border border-chat-border"
+                                                className="w-12 h-12 rounded-2xl bg-slate-600 flex items-center justify-center flex-shrink-0 shadow-md border border-slate-700"
                                             >
-                                                <User size={20} className="text-muted-foreground" />
+                                                <User size={20} className="text-slate-300" />
                                             </motion.div>
                                         )}
                                     </motion.div>
@@ -268,19 +242,19 @@ const AiChat = () => {
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -20 }}
+                                        exit={{ opacity: 0 }}
                                         className="flex items-end gap-4 justify-start"
                                     >
-                                        <div className="w-12 h-12 rounded-2xl bg-gradient-primary flex items-center justify-center flex-shrink-0 shadow-message animate-pulse-glow">
-                                            <CalendarDays size={20} className="text-primary-foreground" />
+                                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center flex-shrink-0 shadow-md animate-pulse">
+                                            <CalendarDays size={20} className="text-white" />
                                         </div>
-                                        <div className="bg-chat-surface border border-chat-border rounded-3xl rounded-bl-lg p-5 flex items-center gap-4 shadow-message">
-                                            <LoaderCircle className="animate-spin text-primary" size={24} />
-                                            <span className="text-muted-foreground">ينظّم أفكاره...</span>
+                                        <div className="bg-slate-700/80 border border-slate-600/50 rounded-2xl rounded-bl-lg p-5 flex items-center gap-4 shadow-lg">
+                                            <LoaderCircle className="animate-spin text-green-400" size={24} />
+                                            <span className="text-slate-400">ينظّم أفكاره...</span>
                                             <div className="flex gap-1">
-                                                <div className="w-2 h-2 bg-primary rounded-full animate-bounce" />
-                                                <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                                                <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                                                <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce" />
+                                                <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                                                <div className="w-2 h-2 bg-green-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
                                             </div>
                                         </div>
                                     </motion.div>
@@ -294,31 +268,29 @@ const AiChat = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4, duration: 0.5 }}
-                            className="p-6 bg-gradient-to-r from-chat-surface/70 to-transparent border-t border-chat-border backdrop-blur-sm"
+                            className="p-6 bg-slate-800/60 border-t border-slate-700 backdrop-blur-sm"
                         >
                             <div className="max-w-4xl mx-auto">
-                                <div className="flex items-center gap-4 bg-muted/50 border border-chat-border rounded-3xl p-3 transition-all duration-300 focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary/50 backdrop-blur-sm">
+                                <div className="flex items-center gap-4 bg-slate-700/50 border border-slate-600 rounded-2xl p-2 transition-all duration-300 focus-within:ring-2 focus-within:ring-green-500/70 focus-within:border-green-500/70 backdrop-blur-sm">
                                     <textarea
                                         value={inputText}
                                         onChange={(e) => setInputText(e.target.value)}
                                         onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSendMessage())}
                                         placeholder="اسأل منظّم عن الفعاليات والمواعيد..."
-                                        className="flex-1 bg-transparent px-4 py-3 text-foreground placeholder-muted-foreground resize-none focus:outline-none text-base leading-relaxed"
+                                        className="flex-1 bg-transparent px-4 py-3 text-slate-100 placeholder-slate-400 resize-none focus:outline-none text-base leading-relaxed"
                                         rows={1}
-                                        style={{ minHeight: '24px', maxHeight: '120px' }}
                                     />
                                     <motion.button
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                         onClick={handleSendMessage}
                                         disabled={!inputText.trim() || isLoading}
-                                        className="p-4 bg-gradient-primary hover:shadow-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none rounded-2xl transition-all duration-300 relative overflow-hidden group"
+                                        className="p-4 bg-gradient-to-br from-green-500 to-teal-600 hover:shadow-lg hover:shadow-green-500/30 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none rounded-xl transition-all duration-300 group"
                                     >
-                                        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                         {isLoading ? (
-                                            <LoaderCircle size={22} className="animate-spin text-primary-foreground relative z-10" />
+                                            <LoaderCircle size={22} className="animate-spin text-white" />
                                         ) : (
-                                            <Send size={22} className="text-primary-foreground relative z-10" />
+                                            <Send size={22} className="text-white" />
                                         )}
                                     </motion.button>
                                 </div>
