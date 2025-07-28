@@ -1,0 +1,23 @@
+{
+  "name": "chat-backend",
+  "version": "1.0.0",
+  "description": "Backend server for the AI chat application",
+  "main": "server.js",
+  "scripts": {
+    "start": "ts-node server.ts"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "node-fetch": "^3.3.2",
+    "undici": "^7.12.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
